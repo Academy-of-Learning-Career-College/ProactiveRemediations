@@ -4,22 +4,22 @@
     # Load the notification into the required format
     $ToastXML = New-Object -TypeName Windows.Data.Xml.Dom.XmlDocument
     $ToastXML.LoadXml($Toast.OuterXml)
-        
+
     # Display the toast notification
     try {
         [Windows.UI.Notifications.ToastNotificationManager]::CreateToastNotifier($App).Show($ToastXml)
     }
-    catch { 
+    catch {
         Write-Output -Message 'Something went wrong when displaying the toast notification' -Level Warn
-        Write-Output -Message 'Make sure the script is running as the logged on user' -Level Warn     
+        Write-Output -Message 'Make sure the script is running as the logged on user' -Level Warn
     }
 }
 # Setting image variables
-$LogoImageUri = "https://raw.githubusercontent.com/insignit/endpointmanagerbranding/master/insignit_512.jpg"
-$HeroImageUri = "https://raw.githubusercontent.com/insignit/endpointmanagerbranding/master/InsignIT_hero.png"
+$LogoImageUri = "https://raw.githubusercontent.com/Academy-of-Learning-Career-College/ProactiveRemediations/main/branding/aolcclogo_512.png"
+$HeroImageUri = "https://raw.githubusercontent.com/Academy-of-Learning-Career-College/ProactiveRemediations/main/branding/aolcc_hero.png"
 $LogoImage = "$env:TEMP\ToastLogoImage.png"
 $HeroImage = "$env:TEMP\ToastHeroImage.png"
-$Uptime= get-computerinfo | Select-Object OSUptime 
+$Uptime= get-computerinfo | Select-Object OSUptime
 
 #Fetching images from uri
 Invoke-WebRequest -Uri $LogoImageUri -OutFile $LogoImage
@@ -28,9 +28,9 @@ Invoke-WebRequest -Uri $HeroImageUri -OutFile $HeroImage
 #Defining the Toast notification settings
 #ToastNotification Settings
 $Scenario = 'reminder' # <!-- Possible values are: reminder | short | long -->
-        
+
 # Load Toast Notification text
-$AttributionText = "Insign.it"
+$AttributionText = "Academy of Learning Career College - IT Department"
 $HeaderText = "Computer Restart is needed!"
 $TitleText = "Your device has not performed a reboot the last $($Uptime.OsUptime.Days) days"
 $BodyText1 = "For performance and stability reasons we suggest a reboot at least once a week."
@@ -69,12 +69,12 @@ if ((Get-ItemProperty -Path "$RegPath\$App" -Name 'ShowInActionCenter' -ErrorAct
             </subgroup>
         </group>
         <group>
-            <subgroup>     
+            <subgroup>
                 <text hint-style="body" hint-wrap="true" >$BodyText1</text>
             </subgroup>
         </group>
         <group>
-            <subgroup>     
+            <subgroup>
                 <text hint-style="body" hint-wrap="true" >$BodyText2</text>
             </subgroup>
         </group>
